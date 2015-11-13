@@ -30,6 +30,12 @@ public class GameLogic : MonoBehaviour {
 
 	}
 
+	public static void Kill(GameObject villager)
+	{
+		villagers.Remove (villager);
+		Transform.Destroy (villager);
+	}
+
 	// Use this for initialization
 	void Start () {
 
