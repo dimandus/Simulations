@@ -32,6 +32,7 @@ public class GameLogic : MonoBehaviour {
 
 	public static void Kill(GameObject villager)
 	{
+		Debug.Log (string.Format("{0} умер в возрасте {1}",villager.GetComponent<CharacterMemory>().Name,villager.GetComponent<CharacterMemory>().Age));
 		villagers.Remove (villager);
 		Transform.Destroy (villager);
 	}

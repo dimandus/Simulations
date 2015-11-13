@@ -8,6 +8,7 @@ public class CharacterMemory : MonoBehaviour {
 	public LayerMask lmask;
 	public GameObject Home;
 	public string Name;
+	public int Age = 0;
 
 	public int maxBuildingsInMemory=5;
 	public int visibilityRange=100;
@@ -15,16 +16,26 @@ public class CharacterMemory : MonoBehaviour {
 
 	public Dictionary<string, List<GameObject>> knownBuildings;
 
+	private float timer;
 
 	// Use this for initialization
 	void Start () {
-
+		Age = 0;
 		knownBuildings = new Dictionary<string, List<GameObject>> ();
+		StartCoroutine ("Live");
 		//Name = gameObject.name;
 	}
 	// Update is called once per frame
 	void Update () {
 
+	}
+
+	IEnumerator Live ()
+	{
+		while (true) {
+			Age++;
+			yield return new WaitForSeconds (1);
+		}
 	}
 
 	public void findBuildings(){
