@@ -10,10 +10,13 @@ public class GameMenu : MonoBehaviour {
 	public RenderTexture map;
 	public Material mat;
 	public GameObject villagersListText;
+	public Canvas VillagerInfo;
+
+	private GameObject Villager;
 
 	// Use this for initialization
 	void Start () {
-	
+		VillagerInfo.enabled=false;
 	}
 	
 	// Update is called once per frame
@@ -33,6 +36,51 @@ public class GameMenu : MonoBehaviour {
 			Application.Quit ();
 		}
 
+		if (Input.GetMouseButtonDown (0)) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit = new RaycastHit();
+
+
+			if(Physics.Raycast (ray,out hit) && hit.collider.gameObject.tag=="Villager")
+			{
+				Villager = hit.collider.gameObject;
+				ShowVillagerInfo ();
+			}
+		}
+
+		UpdateVillagerInfo ();
+
+	}
+
+	public void CloseVillagerInfo()
+	{
+		if(Villager!=null)
+		{
+			Villager.transform.FindChild ("Camera").GetComponent<Camera> ().enabled = false;
+			VillagerInfo.enabled=false;
+			Villager=null;
+		}
+	}
+	public void ShowVillagerInfo()
+	{
+//		CharacterMemory villagerMemory = Villager.GetComponent<CharacterMemory> ();
+//		VillagerInfo.transform.FindChild ("Name").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.Name;
+//		VillagerInfo.transform.FindChild ("Home").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.Home;
+//		VillagerInfo.transform.FindChild ("Status").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.StateOfCharacter.ToString();
+		Villager.transform.FindChild ("Camera").GetComponent<Camera> ().enabled = true;
+		VillagerInfo.enabled=true;
+
+	}
+
+	public void UpdateVillagerInfo()
+	{
+		if (VillagerInfo.enabled) {
+			CharacterMemory villagerMemory = Villager.GetComponent<CharacterMemory> ();
+			VillagerInfo.transform.FindChild ("Name").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.Name;
+			VillagerInfo.transform.FindChild ("Home").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.Home.name;
+			VillagerInfo.transform.FindChild ("Age").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.Age.ToString();
+			VillagerInfo.transform.FindChild ("Status").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.StateOfCharacter.ToString();
+		}
 	}
 
 	void OnGUI(){
