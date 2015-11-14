@@ -11,7 +11,7 @@ public class GameMenu : MonoBehaviour {
 	public Material mat;
 	public GameObject villagersListText;
 	public Canvas VillagerInfo;
-
+	public UnityEngine.UI.Text needPrefab;
 	private GameObject Villager;
 
 	// Use this for initialization
@@ -80,6 +80,34 @@ public class GameMenu : MonoBehaviour {
 			VillagerInfo.transform.FindChild ("Home").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.Home.name;
 			VillagerInfo.transform.FindChild ("Age").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.Age.ToString();
 			VillagerInfo.transform.FindChild ("Status").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.StateOfCharacter.ToString();
+
+			Transform needs = VillagerInfo.transform.FindChild ("Needs").FindChild("Viewport").FindChild("Content");
+
+			foreach(string need in Villager.GetComponent<Character>().needs.Keys)
+			{
+				if(needs.FindChild(need)!=null)//такой элемент уже есть на меню
+				{
+					needs.FindChild (need).GetComponent<UnityEngine.UI.Text>().text= string.Format("Нужда \"{0}\" = {1}",need,Villager.GetComponent<Character>().needs[need].ToString());
+				
+				}
+				else//создадим новый элемент
+				{
+					UnityEngine.UI.Text needInfo = GameObject.Instantiate (needPrefab);
+					needInfo.text = string.Format("Нужда \"{0}\" = {1}",need,Villager.GetComponent<Character>().needs[need].ToString());
+					needInfo.name = need;
+					needInfo.transform.SetParent(needs);
+				}
+			}
+
+			foreach(Transform need in needs)//удалим ненужные нужды
+			{
+				if(!Villager.GetComponent<Character>().needs.ContainsKey(need.name))
+				{
+				GameObject.Destroy (need.gameObject);
+				}
+			}
+
+
 		}
 	}
 
