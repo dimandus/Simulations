@@ -21,7 +21,6 @@ public class GameMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//ScrollView.GetComponent<GUI.
 		string villagerList = "";
 
 		foreach (GameObject villager in GameLogic.villagers) {
@@ -63,13 +62,8 @@ public class GameMenu : MonoBehaviour {
 	}
 	public void ShowVillagerInfo()
 	{
-//		CharacterMemory villagerMemory = Villager.GetComponent<CharacterMemory> ();
-//		VillagerInfo.transform.FindChild ("Name").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.Name;
-//		VillagerInfo.transform.FindChild ("Home").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.Home;
-//		VillagerInfo.transform.FindChild ("Status").FindChild ("Value").GetComponent<UnityEngine.UI.Text> ().text = villagerMemory.StateOfCharacter.ToString();
 		Villager.transform.FindChild ("Camera").GetComponent<Camera> ().enabled = true;
 		VillagerInfo.enabled=true;
-
 	}
 
 	public void UpdateVillagerInfo()
@@ -114,10 +108,5 @@ public class GameMenu : MonoBehaviour {
 	void OnGUI(){
 		GUI.depth = numDepth;
 		GUI.skin = mainUI;
-
-
-//			if (Event.current.type.Equals (EventType.Repaint)) {
-//				Graphics.DrawTexture (new Rect(0,Screen.height-128,128,128), map,mat);
-//			}
 	}
 }

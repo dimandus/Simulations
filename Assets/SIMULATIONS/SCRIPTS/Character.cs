@@ -5,10 +5,7 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
-
-	//public string Name="Default Name Character";
 	public int Health = 100;
-	public int Mana = 0;
 	public Dictionary<string,int> needs;
 	private GameObject _interface;
 	private CharacterMover _mover;
@@ -55,15 +52,16 @@ public class Character : MonoBehaviour
 			}
 		}
 
-		if (_memory.StateOfCharacter == CharacterMemory.CharStates.Idle) {
+		Vector3 home = Vector3.Scale (_memory.Home.transform.position, new Vector3 (1, 0, 1));
+		if (_memory.StateOfCharacter == CharacterMemory.CharStates.Idle && Vector3.Distance (_memory.Home.transform.position, gameObject.transform.position) > 10) {
+		//if (_memory.StateOfCharacter == CharacterMemory.CharStates.Idle && Vector3.Distance (home, Vector3.Scale (new Vector3 (1, 0, 1),gameObject.transform.position)) > 3) {
 
-			_mover.SendChar (new Vector3 (_memory.Home.transform.position.x + Random.Range (-20, 20),
-			                            _memory.Home.transform.position.y,
-			                            _memory.Home.transform.position.z + Random.Range (-20, 20)));
+			//gameObject.GetComponent<NavMeshAgent>().SetDestination (_memory.Home.transform.position);
+			//gameObject.GetComponent<NavMeshAgent>().Move(Vector3.zero);
+			//gameObject.GetComponent<Animator> ().SetFloat ("Forward", 2);
+			//_memory.StateOfCharacter= CharacterMemory.CharStates.Going;
+			_mover.SendChar (_memory.Home.transform.position);
 		}
-
-
-
 
 	}
 
@@ -76,7 +74,6 @@ public class Character : MonoBehaviour
 	{
 		_memory.Name = name;
 		this.Health = maxHealth;
-		this.Mana = maxMana;
 	}
 
 

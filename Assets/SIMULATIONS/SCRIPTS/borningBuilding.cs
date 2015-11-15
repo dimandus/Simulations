@@ -16,11 +16,9 @@ public class borningBuilding : MonoBehaviour {
 	void Update () {
 	if ((Time.frameCount % 100 == 0) && GameLogic.villagers.Count<20) {
 			GameObject newVillager =(GameObject) GameObject.Instantiate(villagerExample,gameObject.transform.position, new Quaternion());
-			//newVillager.GetComponent<Character>().Init("Villager#"+count,100,100);
 			newVillager.GetComponent<CharacterMemory>().Name = "Villager#"+count;
 			newVillager.GetComponent<CharacterMemory>().Home = GameLogic.buildings[Random.Range(0,GameLogic.buildings.Count)];
 			GameLogic.villagers.Add(newVillager);
-			//newVillager.GetComponent<CharacterMover>().SendChar(newVillager.GetComponent<CharacterMemory>().Home.transform.position);
 			count++;
 		}
 	}
