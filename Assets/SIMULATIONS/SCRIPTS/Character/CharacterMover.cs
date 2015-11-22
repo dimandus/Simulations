@@ -31,7 +31,7 @@ public class CharacterMover : MonoBehaviour
 
 	public void SendChar (Vector3 dest)
 	{
-		if (_memory.StateOfCharacter == CharacterMemory.CharStates.Idle) {
+		if (_memory.StateOfCharacter == CharacterMemory.CharStates.Idle && dest!=Vector3.zero) {
 			navigator.SetDestination (dest);
 			gameObject.GetComponent<Animator> ().SetFloat ("Forward", 2);
 			_memory.StateOfCharacter = CharacterMemory.CharStates.Going;

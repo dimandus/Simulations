@@ -6,7 +6,7 @@ public class GameMenu : MonoBehaviour {
 	public GUISkin mainUI;
 	public int numDepth=0;
 	public string nameWindow;
-
+	public LayerMask VillagerMask;
 	public RenderTexture map;
 	public Material mat;
 	public GameObject villagersListText;
@@ -40,7 +40,7 @@ public class GameMenu : MonoBehaviour {
 			RaycastHit hit = new RaycastHit();
 
 
-			if(Physics.Raycast (ray,out hit) && hit.collider.gameObject.tag=="Villager")
+			if(Physics.Raycast (ray,out hit,VillagerMask) && hit.collider.gameObject.tag=="Villager")
 			{
 				Villager = hit.collider.gameObject;
 				ShowVillagerInfo ();

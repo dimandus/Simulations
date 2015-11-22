@@ -60,13 +60,15 @@ public class CharacterMemory : MonoBehaviour
 		float minimalDistance = int.MaxValue;
 		Vector3 position = gameObject.transform.position;
 
-		if (knownBuildings.ContainsKey (need))
+		if (knownBuildings.ContainsKey (need)) {
 			foreach (GameObject building in knownBuildings[need]) {
 				if (Vector3.Distance (gameObject.transform.position, building.transform.position) < minimalDistance) {
 					minimalDistance = Vector3.Distance (gameObject.transform.position, building.transform.position);
 					position = building.transform.position;
 				}
 			}
+		} else
+			return Vector3.zero;
 
 		return position;
 	}
